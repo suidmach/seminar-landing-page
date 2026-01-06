@@ -377,6 +377,21 @@ body {
     width: auto;
 }
 
+.seminar-note {
+    background: #eff6ff;
+    border-left: 4px solid var(--primary-color);
+    padding: 16px;
+    border-radius: 6px;
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-medium);
+}
+
+.seminar-note strong {
+    color: var(--primary-color);
+}
+
 .submit-button {
     width: 100%;
     background: var(--primary-color);
