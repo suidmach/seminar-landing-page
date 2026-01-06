@@ -30,6 +30,28 @@ function doPost(e) {
     // Open the Google Sheet
     const sheet = SpreadsheetApp.openById(SHEET_ID).getSheetByName(SHEET_NAME);
     
+    // Check for duplicate email
+    if (sheet) {
+      const dataRange = sheet.getDataRange();
+      const values = dataRange.getValues();
+      
+      // Check if email already exists (column D is email, index 3)
+      for (let i = 1; i < values.length; i++) {
+        if (values[i][3] && values[i][3].toLowerCase() === data.email.toLowerCase()) {
+          Logger.log('Duplicate email detected: ' + data.email);
+          
+          // Still send confirmation email (they might have forgotten they registered)
+          sendConfirmationEmail(data);
+          
+          return ContentService.createTextOutput(JSON.stringify({
+            'status': 'success',
+            'message': 'Already registered',
+            'duplicate': true
+          })).setMimeType(ContentService.MimeType.JSON);
+        }
+      }
+    }
+    
     // If sheet doesn't exist, create it with headers
     if (!sheet) {
       const newSheet = SpreadsheetApp.openById(SHEET_ID).insertSheet(SHEET_NAME);
@@ -42,11 +64,13 @@ function doPost(e) {
         'Seminar Date',
         'Timeline',
         'Status',
+        'Seminar Assigned',
+        'Attended',
         'Notes'
       ]);
       
       // Format header row
-      newSheet.getRange(1, 1, 1, 9).setFontWeight('bold').setBackground('#4285f4').setFontColor('#ffffff');
+      newSheet.getRange(1, 1, 1, 11).setFontWeight('bold').setBackground('#4285f4').setFontColor('#ffffff');
       
       // Add data
       newSheet.appendRow([
@@ -58,6 +82,8 @@ function doPost(e) {
         data.seminarDate,
         data.timeline,
         'Registered',
+        '',
+        '',
         ''
       ]);
     } else {
@@ -71,6 +97,8 @@ function doPost(e) {
         data.seminarDate,
         data.timeline,
         'Registered',
+        '',
+        '',
         ''
       ]);
     }
@@ -120,7 +148,9 @@ What to expect:
 - Q&A at the end for your specific situation
 - A resource guide you can reference later
 
-I'll send you the specific date and Google Meet link within 24 hours. If that date doesn't work for you, just reply to this email and we'll get you into the next available session.
+Quick prep: Think about your timeline (when you want to buy) and your biggest questions. I'll make sure we cover them.
+
+I'll send you reminder emails and the Google Meet link as we get closer to your seminar date.
 
 Looking forward to seeing you there!
 
@@ -137,7 +167,7 @@ You're receiving this email because you registered for the First-Time Home Buyer
 National Bank
 2002 Sheppard Ave E, North York, ON M2J 5B3
 
-To unsubscribe from future seminar communications, reply to this email with "UNSUBSCRIBE" in the subject line, or email hello@mathewgibeault.ca`;
+To unsubscribe from future seminar communications, click here: mailto:hello@mathewgibeault.ca?subject=UNSUBSCRIBE&body=Please%20unsubscribe%20me%20from%20your%20seminar%20email%20list.`;
 
     MailApp.sendEmail({
       to: data.email,
