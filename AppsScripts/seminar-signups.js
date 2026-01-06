@@ -132,47 +132,53 @@ function sendConfirmationEmail(data) {
   try {
     const subject = "You're Registered! First-Time Buyer Seminar Details";
     
-    const body = `Hi ${data.firstName},
-
-Thanks for registering for my First-Time Home Buyer Seminar!
-
-Here's what you need to know:
-
-📅 Date: Next Available Seminar (you'll receive the specific date within 24 hours)
-💻 Where: Google Meet (link will be sent 24 hours before the seminar)
-⏱ Duration: 60 minutes
-
-What to expect:
-- Real strategies that have saved families $50-70K
-- No sales pitch (I promise)
-- Q&A at the end for your specific situation
-- A resource guide you can reference later
-
-Quick prep: Think about your timeline (when you want to buy) and your biggest questions. I'll make sure we cover them.
-
-I'll send you reminder emails and the Google Meet link as we get closer to your seminar date.
-
-Looking forward to seeing you there!
-
-Mathew Gibeault
-Mortgage Development Manager
-National Bank of Canada
-Phone: 647-456-8120
-Email: hello@mathewgibeault.ca
-
----
-
-You're receiving this email because you registered for the First-Time Home Buyer Seminar at seminar.mathewgibeault.ca on ${new Date(data.timestamp).toLocaleDateString()}.
-
-National Bank
-2002 Sheppard Ave E, North York, ON M2J 5B3
-
-To unsubscribe from future seminar communications, click here: mailto:hello@mathewgibeault.ca?subject=UNSUBSCRIBE&body=Please%20unsubscribe%20me%20from%20your%20seminar%20email%20list.`;
+    const htmlBody = `
+      <p>Hi ${data.firstName},</p>
+      
+      <p>Thanks for registering for my First-Time Home Buyer Seminar!</p>
+      
+      <p><strong>Here's what you need to know:</strong></p>
+      
+      <p>📅 <strong>Date:</strong> Next Available Seminar (you'll receive the specific date within 24 hours)<br>
+      💻 <strong>Where:</strong> Google Meet (link will be sent 24 hours before the seminar)<br>
+      ⏱ <strong>Duration:</strong> 60 minutes</p>
+      
+      <p><strong>What to expect:</strong></p>
+      <ul>
+        <li>Real strategies that have saved families $50-70K</li>
+        <li>No sales pitch (I promise)</li>
+        <li>Q&A at the end for your specific situation</li>
+        <li>A resource guide you can reference later</li>
+      </ul>
+      
+      <p>Quick prep: Think about your timeline (when you want to buy) and your biggest questions. I'll make sure we cover them.</p>
+      
+      <p>I'll send you reminder emails and the Google Meet link as we get closer to your seminar date.</p>
+      
+      <p>Looking forward to seeing you there!</p>
+      
+      <p><strong>Mathew Gibeault</strong><br>
+      Mortgage Development Manager<br>
+      National Bank of Canada<br>
+      Phone: 647-456-8120<br>
+      Email: hello@mathewgibeault.ca</p>
+      
+      <hr>
+      
+      <p style="font-size: 12px; color: #666;">
+      You're receiving this email because you registered for the First-Time Home Buyer Seminar at seminar.mathewgibeault.ca on ${new Date(data.timestamp).toLocaleDateString()}.<br><br>
+      
+      <strong>National Bank</strong><br>
+      2002 Sheppard Ave E, North York, ON M2J 5B3<br><br>
+      
+      To unsubscribe from future seminar communications, <a href="mailto:hello@mathewgibeault.ca?subject=UNSUBSCRIBE&body=Please%20unsubscribe%20me%20from%20your%20seminar%20email%20list.">click here</a> or reply with "UNSUBSCRIBE" in the subject line.
+      </p>
+    `;
 
     MailApp.sendEmail({
       to: data.email,
       subject: subject,
-      body: body
+      htmlBody: htmlBody
     });
     
     Logger.log('Confirmation email sent to: ' + data.email);
@@ -201,7 +207,7 @@ Check your Google Sheet for full details.
 
 Action Required:
 1. Assign them to next available seminar date
-2. Send them the Zoom link 24-48 hours before
+2. Send them the Google Meet link 24-48 hours before
 
 National Bank
 2002 Sheppard Ave E, North York, ON M2J 5B3`;
