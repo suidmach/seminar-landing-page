@@ -25,8 +25,8 @@ form.addEventListener('submit', async function(e) {
         lastName: document.getElementById('lastName').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
-        seminarDate: document.getElementById('seminarDate').value,
         timeline: document.getElementById('timeline').value,
+        seminarDate: 'Next Available',
         timestamp: new Date().toISOString()
     };
     
