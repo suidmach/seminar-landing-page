@@ -8,9 +8,6 @@
 - Updated to "Federally Regulated Financial Institution"
 - Added proper disclaimer mentioning your role
 
-### 2. ✅ Contact Info Updated
-- Phone: 647-456-8120 (added everywhere)
-- Email: hello@mathewgibeault.ca (fixed)
 
 ### 3. ✅ Domain Strategy Decided
 
@@ -180,10 +177,6 @@ This is EXACTLY the right approach for a bank employee.
 
 ## Quick Reference:
 
-**Your URL:** https://seminar.mathewgibeault.ca
-**Your Phone:** 647-456-8120
-**Your Email:** hello@mathewgibeault.ca
-**Your Title:** Mortgage Development Manager, National Bank of Canada
 
 **First Seminar Date:** [Update in index.html with your actual dates]
 
